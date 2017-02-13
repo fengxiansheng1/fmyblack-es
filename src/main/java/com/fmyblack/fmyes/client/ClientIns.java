@@ -1,24 +1,27 @@
-package com.fmyblack.fmyes;
+package com.fmyblack.fmyes.client;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import org.elasticsearch.action.admin.cluster.state.ClusterStateResponse;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 import com.fmyblack.util.config.ConfigHelper;
 
-public enum ClientUtil {
+public enum ClientIns {
 
 	CLIENT {
     };
     
     protected TransportClient client = null;
 
-    private ClientUtil() {
+    private ClientIns() {
     	ConfigHelper.init("/Users/fmyblack/javaproject/fmyblack-es/src/main/resources/conf");
         String cluster_name = ConfigHelper.getConf("es", "cluster.name");
         String transports = ConfigHelper.getConf("es", "transport");
@@ -62,10 +65,16 @@ public enum ClientUtil {
     }
     
     public static void main(String[] args) {
+    	QueryBuilder qb = QueryBuilders.queryStringQuery("body:\"北京\"");
     	CLIENT.getClient();
-    	CLIENT.getClient();
-    	if(CLIENT.checkClient()) {
-    		System.out.println("yes");
-    	}
+    	SearchResponse sr = CLIENT.client.prepareSearch("caiyun")
+    			.setTypes("spider_result")
+    			.setQuery(qb)
+//    			.setHighlighterQuery(qb)
+    			.addHighlightedField("body")
+//    			.addHighlightedField("title")
+    			.execute()
+    			.actionGet();
+    	System.out.println(sr.toString());
     }
 }

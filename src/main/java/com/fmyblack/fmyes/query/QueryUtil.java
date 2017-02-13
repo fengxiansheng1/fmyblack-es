@@ -1,4 +1,4 @@
-package com.fmyblack.fmyes;
+package com.fmyblack.fmyes.query;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;

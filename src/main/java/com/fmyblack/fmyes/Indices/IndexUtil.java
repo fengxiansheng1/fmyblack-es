@@ -1,4 +1,4 @@
-package com.fmyblack.fmyes;
+package com.fmyblack.fmyes.Indices;
 
 import java.io.IOException;
 import java.util.List;
@@ -88,7 +88,6 @@ public class IndexUtil {
 			PutMappingRequest mappingRequest = Requests.putMappingRequest(index).type(type).source(mapping);
 			client.admin().indices().putMapping(mappingRequest).actionGet();
 			return true;
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -132,7 +131,6 @@ public class IndexUtil {
 //				}
 //			}
 			
-			mapping.
 			mapping.endObject();
 			
 			mapping.startObject("_all").field("enabled", true).startObject("norms").field("enabled", false).endObject()

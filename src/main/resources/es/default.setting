@@ -1,0 +1,16 @@
+{
+    "index":{
+        "refresh_interval":"30s",
+        "number_of_shards":"3",
+        "translog":{
+            "flush_threshold_period":"30m",
+            "flush_threslog_size":"5g"
+        },
+        "creation_date":"1486620750756",
+        "number_of_replicas":"1",
+        "uuid":"eNSwlEaZRuOpzpDkH9B8Rg",
+        "version":{
+            "created":"2030499"
+        }
+    }
+}

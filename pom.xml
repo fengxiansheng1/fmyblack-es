@@ -11,14 +11,14 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.elasticsearch</groupId>
-			<artifactId>elasticsearch</artifactId>
-			<version>${es.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>com.fmyblack</groupId>
 			<artifactId>fmyblack-util</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>${es.version}</version>
 		</dependency>
 	</dependencies>
 </project>
