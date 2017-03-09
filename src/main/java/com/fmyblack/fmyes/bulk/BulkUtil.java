@@ -6,9 +6,11 @@ import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.client.Client;
 
+import com.fmyblack.fmyes.client.ClientProxy;
+
 public class BulkUtil {
 	
-	static Client client;
+	static Client client = ClientProxy.getClient();
 
 	public static void bulk(String index, String type, List<String> docs){
 		int doc_num = docs.size();

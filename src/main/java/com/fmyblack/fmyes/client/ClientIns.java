@@ -22,7 +22,6 @@ public enum ClientIns {
 	protected TransportClient client = null;
 
 	private ClientIns() {
-		ConfigHelper.init("/Users/fmyblack/javaproject/fmyblack-es/src/main/resources/conf");
 		String cluster_name = ConfigHelper.getConf("es", "cluster.name");
 		String transports = ConfigHelper.getConf("es", "transport");
 
