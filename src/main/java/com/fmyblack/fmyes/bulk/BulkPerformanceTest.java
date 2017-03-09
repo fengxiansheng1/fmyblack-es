@@ -1,6 +1,7 @@
 package com.fmyblack.fmyes.bulk;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.fmyblack.fmyes.EsServer;
 import com.fmyblack.util.config.ConfigHelper;
 
 import net.sf.json.JSONObject;
@@ -19,6 +21,7 @@ public class BulkPerformanceTest implements Runnable{
 	static int circle_time;
 	static int bulk_size;
 	static int file_length;
+	static String setting_file;
 	static String log_path;
 	static String index = "test";
 	static String type = "test";
@@ -35,6 +38,7 @@ public class BulkPerformanceTest implements Runnable{
 		bulk_size = Integer.parseInt(ConfigHelper.getConf("performance", "bulk.size"));
 		file_length = Integer.parseInt(ConfigHelper.getConf("performance", "file.length"));
 		log_path = ConfigHelper.getConf("performance", "log.path");
+		setting_file = ConfigHelper.getConf("performance", "setting.file");
 		oriLine = new String[file_length];
 		index = ConfigHelper.getConf("performance", "index.name");
 		type = ConfigHelper.getConf("performance", "type.name");
@@ -45,6 +49,8 @@ public class BulkPerformanceTest implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		EsServer.getInstance().createIndex(index, new File(setting_file));
 		
 		start = System.currentTimeMillis();
 		for(int i = 0; i < thread_size; i++) {
