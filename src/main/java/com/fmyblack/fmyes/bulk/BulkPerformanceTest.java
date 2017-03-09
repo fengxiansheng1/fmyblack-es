@@ -46,15 +46,15 @@ public class BulkPerformanceTest implements Runnable{
 		index = ConfigHelper.getConf("performance", "index.name");
 		type = ConfigHelper.getConf("performance", "type.name");
 		
+		CreateState cs = EsServer.getInstance().createIndex(index, new File(setting_file));
+		System.out.println(cs.toString());
+
 		try {
 			loadFile();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		CreateState cs = EsServer.getInstance().createIndex(index, new File(setting_file));
-		System.out.println(cs.toString());
 		
 		start = System.currentTimeMillis();
 		for(int i = 0; i < thread_size; i++) {
