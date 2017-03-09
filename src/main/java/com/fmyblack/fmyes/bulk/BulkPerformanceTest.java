@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.elasticsearch.index.engine.Engine.Create;
+
 import com.fmyblack.fmyes.EsServer;
+import com.fmyblack.fmyes.Indices.CreateState;
 import com.fmyblack.util.config.ConfigHelper;
 
 import net.sf.json.JSONObject;
@@ -50,7 +53,8 @@ public class BulkPerformanceTest implements Runnable{
 			e.printStackTrace();
 		}
 		
-		EsServer.getInstance().createIndex(index, new File(setting_file));
+		CreateState cs = EsServer.getInstance().createIndex(index, new File(setting_file));
+		System.out.println(cs.toString());
 		
 		start = System.currentTimeMillis();
 		for(int i = 0; i < thread_size; i++) {
