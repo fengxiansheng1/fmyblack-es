@@ -19,6 +19,7 @@ public class BulkPerformanceTest implements Runnable{
 	static int circle_time;
 	static int bulk_size;
 	static int file_length;
+	static String log_path;
 	static String index = "test";
 	static String type = "test";
 	
@@ -31,6 +32,7 @@ public class BulkPerformanceTest implements Runnable{
 		circle_time = Integer.parseInt(ConfigHelper.getConf("performance", "circle_time"));
 		bulk_size = Integer.parseInt(ConfigHelper.getConf("performance", "bulk.size"));
 		file_length = Integer.parseInt(ConfigHelper.getConf("performance", "file.length"));
+		log_path = ConfigHelper.getConf("performance", "log.path");
 		oriLine = new String[file_length];
 		index = ConfigHelper.getConf("performance", "index.name");
 		type = ConfigHelper.getConf("performance", "type.name");
@@ -50,7 +52,7 @@ public class BulkPerformanceTest implements Runnable{
 	
 	public static void loadFile() throws IOException{
 		BufferedReader br;
-		br = new BufferedReader(new FileReader("9z-access_log.log"));
+		br = new BufferedReader(new FileReader(log_path));
 		String line_ori = null;
 		int length = 0;
 		while((line_ori=br.readLine())!=null){
