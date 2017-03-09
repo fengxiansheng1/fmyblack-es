@@ -23,6 +23,8 @@ public class BulkPerformanceTest implements Runnable{
 	static String index = "test";
 	static String type = "test";
 	
+	static long start;
+	
 	/**
 	 * @param args
 	 */
@@ -44,6 +46,7 @@ public class BulkPerformanceTest implements Runnable{
 			e.printStackTrace();
 		}
 		
+		start = System.currentTimeMillis();
 		for(int i = 0; i < thread_size; i++) {
 			BulkPerformanceTest bpft = new BulkPerformanceTest();
 			new Thread(bpft).start();
@@ -78,16 +81,20 @@ public class BulkPerformanceTest implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		List<String> bulkSource = new ArrayList<String>();
-		for(int i = 1; i <= file_length; i++) {
-			String source = loadSource(oriLine[i]);
-			bulkSource.add(source);
-			if(i % bulk_size == 0 ) {
-				BulkUtil.bulk(index, type, bulkSource);
-				bulkSource.clear();
+		for(int c = 0; c < circle_time; c++) {
+			List<String> bulkSource = new ArrayList<String>();
+			for(int i = 1; i <= file_length; i++) {
+				String source = loadSource(oriLine[i-1]);
+				bulkSource.add(source);
+				if(i % bulk_size == 0 ) {
+					BulkUtil.bulk(index, type, bulkSource);
+					bulkSource.clear();
+				}
 			}
+			BulkUtil.bulk(index, type, bulkSource);
 		}
-		BulkUtil.bulk(index, type, bulkSource);
+		long end = System.currentTimeMillis();
+		System.out.println("I am over :\t " + (end - start));
 	}
 
 }
