@@ -26,7 +26,7 @@ public class BulkPerformanceTest implements Runnable{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		ConfigHelper.init();
+		ConfigHelper.init(args[0]);
 		thread_size = Integer.parseInt(ConfigHelper.getConf("performance", "thread_size"));
 		circle_time = Integer.parseInt(ConfigHelper.getConf("performance", "circle_time"));
 		bulk_size = Integer.parseInt(ConfigHelper.getConf("performance", "bulk.size"));
