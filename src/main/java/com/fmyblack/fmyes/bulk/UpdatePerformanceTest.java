@@ -29,7 +29,7 @@ public class UpdatePerformanceTest implements Runnable{
 	static String index = "test";
 	static String type = "test";
 	
-	static Client client = ClientProxy.getClient();
+	static Client client;
 	
 	static long start;
 	
@@ -38,6 +38,7 @@ public class UpdatePerformanceTest implements Runnable{
 	 */
 	public static void main(String[] args) {
 		ConfigHelper.init(args[0]);
+		client = ClientProxy.getClient();
 		thread_size = Integer.parseInt(ConfigHelper.getConf("performance", "thread_size"));
 		circle_time = Integer.parseInt(ConfigHelper.getConf("performance", "circle_time"));
 		bulk_size = Integer.parseInt(ConfigHelper.getConf("performance", "bulk.size"));
