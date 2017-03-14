@@ -61,7 +61,7 @@ public class UpdatePerformanceTest implements Runnable{
 		
 		start = System.currentTimeMillis();
 		for(int i = 0; i < thread_size; i++) {
-			BulkPerformanceTest bpft = new BulkPerformanceTest();
+			UpdatePerformanceTest bpft = new UpdatePerformanceTest();
 			new Thread(bpft).start();
 		}
 	}
