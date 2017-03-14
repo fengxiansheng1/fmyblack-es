@@ -74,12 +74,11 @@ public class UpdatePerformanceTest implements Runnable{
 		int length = 0;
 		long startid = 123456789l;
 		while((line_ori=br.readLine())!=null){
+			oriLine[length] = startid + "\t" + line_ori;
 			length++;
 			if(length >= file_length) {
 				break;
 			}
-			oriLine[length] = startid + "\t" + line_ori;
-			System.out.println(oriLine[length]);
 			startid++;
 		}
 		for( ; length < file_length; length++) {

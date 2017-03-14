@@ -69,11 +69,11 @@ public class BulkPerformanceTest implements Runnable{
 		String line_ori = null;
 		int length = 0;
 		while((line_ori=br.readLine())!=null){
+			oriLine[length] = line_ori;
 			length++;
 			if(length >= file_length) {
 				break;
 			}
-			oriLine[length] = line_ori;
 		}
 		for( ; length < file_length; length++) {
 			oriLine[length] = oriLine[0];
