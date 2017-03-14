@@ -33,6 +33,8 @@ public class UpdatePerformanceTest implements Runnable{
 	
 	static long start;
 	
+	int thread_num;
+	
 	/**
 	 * @param args
 	 */
@@ -61,7 +63,7 @@ public class UpdatePerformanceTest implements Runnable{
 		
 		start = System.currentTimeMillis();
 		for(int i = 0; i < thread_size; i++) {
-			UpdatePerformanceTest bpft = new UpdatePerformanceTest();
+			UpdatePerformanceTest bpft = new UpdatePerformanceTest(i);
 			new Thread(bpft).start();
 		}
 	}
@@ -86,13 +88,17 @@ public class UpdatePerformanceTest implements Runnable{
 		}
 	}
 
-	public static IndexRequestBuilder loadSource(String ori) {
+	public static IndexRequestBuilder loadSource(int thread_num, int c, String ori) {
 		String[] cols = ori.split("\t", 2);
 		
 		JSONObject jo = new JSONObject();
 		jo.put("one", cols[1]);
-		
-		return client.prepareIndex(index, type, cols[0]).setSource(jo.toString());
+		String id = cols[0] + thread_num + c;
+		return client.prepareIndex(index, type, id).setSource(jo.toString());
+	}
+	
+	public UpdatePerformanceTest(int num) {
+		this.thread_num = num;
 	}
 	
 	@Override
@@ -101,7 +107,7 @@ public class UpdatePerformanceTest implements Runnable{
 		for(int c = 0; c < circle_time; c++) {
 			List<IndexRequestBuilder> bulkSource = new ArrayList<IndexRequestBuilder>();
 			for(int i = 1; i <= file_length; i++) {
-				IndexRequestBuilder source = loadSource(oriLine[i-1]);
+				IndexRequestBuilder source = loadSource(this.thread_num, c, oriLine[i-1]);
 				bulkSource.add(source);
 				if(i % bulk_size == 0 ) {
 					BulkUtil.bulk(bulkSource);
