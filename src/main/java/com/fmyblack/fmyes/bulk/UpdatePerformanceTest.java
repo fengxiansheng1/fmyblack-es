@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.Client;
@@ -32,6 +33,8 @@ public class UpdatePerformanceTest implements Runnable{
 	static Client client;
 	
 	static long start;
+	
+	static Random rand = new Random(47);
 	
 	int thread_num;
 	
@@ -92,7 +95,7 @@ public class UpdatePerformanceTest implements Runnable{
 		String[] cols = ori.split("\t", 2);
 		
 		JSONObject jo = new JSONObject();
-		jo.put("one", cols[1]);
+		jo.put("one", cols[1] + rand.nextInt(100));
 		String id = cols[0] + thread_num + c;
 		return client.prepareIndex(index, type, id).setSource(jo.toString());
 	}
