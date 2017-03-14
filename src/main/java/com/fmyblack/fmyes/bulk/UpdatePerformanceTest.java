@@ -68,6 +68,7 @@ public class UpdatePerformanceTest implements Runnable{
 	
 	public static void loadFile() throws IOException{
 		BufferedReader br;
+		System.out.println("log file:\t" + log_path);
 		br = new BufferedReader(new FileReader(log_path));
 		String line_ori = null;
 		int length = 0;
@@ -78,6 +79,7 @@ public class UpdatePerformanceTest implements Runnable{
 				break;
 			}
 			oriLine[length] = startid + "\t" + line_ori;
+			System.out.println(oriLine[length]);
 			startid++;
 		}
 		for( ; length < file_length; length++) {
