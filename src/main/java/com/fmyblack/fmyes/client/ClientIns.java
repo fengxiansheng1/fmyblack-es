@@ -24,6 +24,13 @@ public enum ClientIns {
 	private ClientIns() {
 		String cluster_name = ConfigHelper.getConf("es", "cluster.name");
 		String transports = ConfigHelper.getConf("es", "transport");
+		
+		if(cluster_name == null) {
+			cluster_name = "fmyblack";
+		}
+		if(transports == null) {
+			transports = "localhost:9300";
+		}
 
 		Settings settings = Settings.settingsBuilder().put("cluster.name", cluster_name).build();
 		client = TransportClient.builder().settings(settings).build();

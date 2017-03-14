@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.Client;
 
 import com.fmyblack.fmyes.client.ClientProxy;
@@ -18,6 +19,23 @@ public class BulkUtil {
 			BulkRequestBuilder requestBuilder = client.prepareBulk();
 			for (int i = 0; i < docs.size(); i++) {
 				requestBuilder.add(client.prepareIndex(index, type).setSource(docs.get(i)));
+			}
+			long start = System.currentTimeMillis();
+			BulkResponse response = requestBuilder.get();
+			long end = System.currentTimeMillis();
+			System.out.println("sudu:" + doc_num/(end-start));
+			if (response.hasFailures()) {
+	            System.out.println(response.buildFailureMessage());
+			}
+		}
+	}
+	
+	public static void bulk(List<IndexRequestBuilder> docs) {
+		int doc_num = docs.size();
+		if(doc_num > 0) {
+			BulkRequestBuilder requestBuilder = client.prepareBulk();
+			for(IndexRequestBuilder doc : docs) {
+				requestBuilder.add(doc);
 			}
 			long start = System.currentTimeMillis();
 			BulkResponse response = requestBuilder.get();
