@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,6 +31,8 @@ public class BulkPerformanceTest implements Runnable{
 	static String type = "test";
 	
 	static long start;
+	static boolean isSep;
+	static Random rand = new Random(47);
 	
 	/**
 	 * @param args
@@ -45,6 +48,7 @@ public class BulkPerformanceTest implements Runnable{
 		oriLine = new String[file_length];
 		index = ConfigHelper.getConf("performance", "index.name");
 		type = ConfigHelper.getConf("performance", "type.name");
+		isSep = Boolean.parseBoolean(ConfigHelper.getConf("performance", "isSep"));
 		
 		CreateState cs = EsServer.getInstance().createIndex(index, new File(setting_file));
 		System.out.println(cs.toString());
@@ -83,7 +87,11 @@ public class BulkPerformanceTest implements Runnable{
 	public static String loadSource(String ori) {
 		
 		JSONObject jo = new JSONObject();
-		jo.put("one", ori);
+		String key = "one";
+		if(isSep) {
+			key += rand.nextInt(1000);
+		}
+		jo.put(key, ori);
 		
 		return jo.toString();
 	}
