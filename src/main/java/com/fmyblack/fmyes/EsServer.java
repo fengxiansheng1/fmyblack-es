@@ -37,7 +37,7 @@ public class EsServer extends EsAdapter{
 	
 	public static void main(String[] args) {
 		EsServer es = EsServer.getInstance();
-		es.createIndex("mytest2");
-//		es.createMapping("mytest", "type1");
+//		es.createIndex("jz_query2");
+		es.createMapping("jz_query2", "test");
 	}
 }

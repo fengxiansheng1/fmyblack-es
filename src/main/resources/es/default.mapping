@@ -1,7 +1,23 @@
 {
     "properties":{
-        "message":{
-            "type":"long"
+        "ip":{
+            "index":"not_analyzed",
+            "type":"string"
+        },
+        "at":{
+        		"analyzer": "semispace",
+			"type": "string",
+			"doc_values":true
+        },
+        "url":{
+        		"type":"string"
+        },
+        "title":{
+        		"type":"string",
+        		"analyzer":"ik_max_word"
+        },
+        "nums":{
+        		"type":"integer"
         }
     }
 }

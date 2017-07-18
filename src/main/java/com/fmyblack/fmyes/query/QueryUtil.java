@@ -65,7 +65,6 @@ public class QueryUtil{
 	// ######### 混合查询
 	
 	/**
-	 * 同时满足多个query
 	 * @param builders
 	 * @return
 	 */
@@ -73,6 +72,22 @@ public class QueryUtil{
 		BoolQueryBuilder qb = QueryBuilders.boolQuery();
 		for(QueryBuilder builder : builders) {
 			qb.must(builder);
+		}
+		return qb;
+	}
+	
+	public static QueryBuilder filterQuery(QueryBuilder... builders) {
+		BoolQueryBuilder qb = QueryBuilders.boolQuery();
+		for(QueryBuilder builder : builders) {
+			qb.filter(builder);
+		}
+		return qb;
+	}
+	
+	public static QueryBuilder shouldQuery(QueryBuilder... builders) {
+		BoolQueryBuilder qb = QueryBuilders.boolQuery();
+		for(QueryBuilder builder : builders) {
+			qb.should(builder);
 		}
 		return qb;
 	}

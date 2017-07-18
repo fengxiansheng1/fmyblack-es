@@ -1,11 +1,19 @@
 {
     "index":{
-        "refresh_interval":"30s",
-        "number_of_shards":"3",
-        "translog":{
-            "flush_threshold_period":"30m",
-            "flush_threslog_size":"5g"
+        "analysis":{
+            "analyzer":{
+                "semispace":{
+                    "type":"pattern",
+                    "pattern":";"
+                }
+            }
         },
-        "number_of_replicas":"1"
+        "number_of_replicas":"0",
+        "translog":{
+            "flush_threshold_period":"10m",
+            "flush_threslog_size":"1g"
+        },
+        "number_of_shards":"3",
+        "refresh_interval":"30s"
     }
 }

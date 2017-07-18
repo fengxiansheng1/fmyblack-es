@@ -34,6 +34,7 @@ public enum ClientIns {
 
 		Settings settings = Settings.settingsBuilder().put("cluster.name", cluster_name).build();
 		client = TransportClient.builder().settings(settings).build();
+		
 		try {
 			for (String transport : transports.split(";")) {
 				String[] cols = transport.split(":");
